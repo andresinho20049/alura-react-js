@@ -1,70 +1,72 @@
-# Getting Started with Create React App
+# Alura - React Course
+This project was developed on the Alura course (React Course: developing with JavaScript)
+the initial development of the project followed the course activities and later converted the project to use Typescript
+
+## Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
 
-In the project directory, you can run:
+[![pt-br](https://img.shields.io/badge/lang-pt--br-green.svg)](https://github.com/andresinho20049/alura-react-js/blob/master/README.pt-br.md)
+
+## Available commands
+
+In the terminal, inside the project folder, you can execute:
 
 ### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Run the app in development mode.\
+Open [http://localhost:3000](http://localhost:3000) to view in your browser.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+The page will be reloaded as soon as any changes are made.\
+You can also see any errors in the console.
 
 ### `npm run build`
 
-Builds the app for production to the `build` folder.\
+Builds the application for production in the `build`.\ folder
 It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.\
+Compilation is minified and file names include hashes.\
 Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Course activities
+The development of the project was based on a design presented in [Figma](https://www.figma.com/), the objective of the project is to create a form and after filling out the form, create a new card with the previously filled data.
 
-### `npm run eject`
+The project in the course was carried out with Javascript and after finishing the course, I changed the project to use Typescript, then replaced points of the code that were passed from props to the components, I reduced some props used by creating contexts.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Using context I was able to have better organization in the code and the save function that was passed to the form via props is now executed in context using the useCallbacks hooks, also reducing function loads.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Below is an example of how the context was created
+```ts
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+   const [times, setTimes] = useState(baseTimes);
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+   const handlerAddNewCollaborator = useCallback((collaborator: EmployeeType) => {
 
-## Learn More
+     const myNextList = [...times];
+     const currentTime = myNextList.find((a) => a.name === collaborator.time);
+     currentTime.collaborators = [...currentTime.collaborators, collaborator];
+     setTimes(myNextList);
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+   }, [times]);
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+   return <FormContext.Provider value={{times, handlerAddNewCollaborator}}>{children}</FormContext.Provider>;
+```
 
-### Code Splitting
+Another point to be highlighted is that in the original course project the list of teams and collaborators are separated and when passing the team's collaborators to rendering a filter is created.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+Here the team roster structure is this
+```ts
+type TimeType = {
+   name: string;
+   primarycolor: string;
+   secondarycolor: string;
+   collaborators: EmployeeType[];
+};
+```
 
-### Analyzing the Bundle Size
+This way, the list of collaborators is within the Team object, and then at the time of registration, the collaborator's team is validated and inserted into the team list assigned to him.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+> Developer André Carlos
+> Project: Alura - React Course
+> [Click here to view the certificate](https://cursos.alura.com.br/user/andre-oliveira-98/course/react-desenvolvendo-javascript/certificate)
