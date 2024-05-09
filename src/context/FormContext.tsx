@@ -75,7 +75,7 @@ export const FormProvider = ({ children }: IFormProviderProps) => {
 
     const myNextList = [...times];
     const currentTime = myNextList.find((a) => a.nome === colaborador.time);
-    currentTime.colaboradores = [...currentTime.colaboradores, colaborador]; // Problem: mutates an existing item
+    currentTime.colaboradores = [...currentTime.colaboradores, colaborador];
     setTimes(myNextList);
 
   }, [times]);
